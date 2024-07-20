@@ -3,6 +3,7 @@
 
  function Product(data) {
      return (
+        <Link to={"/ProductDetails/" + data.id}    >
          <div className="  border   bg-white  flex flex-col gap-2   " >
              <div className="w-full h-full">
                  <img className=" w-full h-full object-cover aspect-square" src={data.thumbnail} />
@@ -12,8 +13,9 @@
              <div className="text-red-500 text-2xs ml-2   ">{data.category}</div>
              <div className="text-1xs ml-2 -mt-1">Rating : {data.rating}/5</div>
              <div className='ml-2 -mt-1 font-bold'> Price : ${data.price}</div>
-             <Link to={"/ProductDetails/" + data.id} className="ml-2 -mt-1 text-blue-500"  > Veiw Detail</Link>
+              
          </div>
+         </Link>
      );
 
  }
