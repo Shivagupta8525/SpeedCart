@@ -1,18 +1,35 @@
  import React, { useState, useEffect } from "react";
  import { Link } from 'react-router-dom';
- import Cart from "./cartProductDetails";
+ import Cart from "./cartDetails";
  import { getProData } from "./api";
  function cart({ cart }) {
-     const keys_array = Object.keys(cart);
-     const totalCount = Object.keys(cart).reduce(function (previous, current) {
-         const [product_cost, setProduct] = useState(0);
-         useEffect(function () {
-             getProData(current).then(function (data) {
-                 setProduct(data.price)
-             })
-         }, [])
-         return previous + cart[current] * product_cost;
+     
+ 
+      const [cart_product, setCart_product] = useState([]);
+      const keys_array = Object.keys(cart);
+
+     const totalCount = cart_product.reduce(function (previous, current) {
+        //  const [product_cost, setProduct] = useState(0);
+        //  useEffect(function () {
+        //      getProData(current).then(function (data) {
+        //          setProduct(data.price)
+        //      })
+        //  }, [])
+         return previous + cart[current.id] *  current.price;
      }, 0).toFixed(2);
+
+
+     const allpromise =Promise.all(keys_array.map(function(id){
+        return getProData(id);
+     }));
+
+     useEffect (function(){
+        allpromise.then(function(data){
+            setCart_product(data);
+            })
+     })
+
+
 
      if (keys_array.length == 0) {
          return (
