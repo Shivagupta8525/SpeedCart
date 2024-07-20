@@ -9,7 +9,7 @@
 
  function ProductDetails({ onAddToCart }) {
 
-     const id = +(useParams().id);
+     const id = parseInt(useParams().id);
      const [product, setProduct] = useState();
      const [loading, setLoading] = useState(true);
      const [count, setCount] = useState(1);
@@ -21,6 +21,7 @@
              console.log("Api ka response aya", product);
              setProduct(product);
              setLoading(false);
+             setCount(1);
 
          }).catch(function () {
              setLoading(false);
@@ -32,8 +33,12 @@
      }, [id]);
 
      function handleCountChange(event) {
+        if (event.target.value <= 0){
+            setCount(1);
+        }
+        else{ 
          setCount(+event.target.value);
-
+        }
 
      }
 
@@ -75,7 +80,7 @@
                      <p className="text-gray-500 text-xs lg:text-xl ">{product.description}
                      </p>
                      <div className="flex gap-2 pt-4  max-h-16">
-                         <input type="number" vaule={count} onChange={handleCountChange} placeholder="1" className="border-2 border-gray-300 rounded-lg px-1  w-12 " />
+                         <input type="number" value={count} onChange={handleCountChange}  className="border-2 border-gray-300 rounded-lg px-1  w-12 " />
                          <button onClick={handleButtonClick} className="bg-orange-600 text-white rounded py-2 px-6">
                              ADD TO CART
                          </button>

@@ -1,8 +1,6 @@
- 
-
  import React, { useEffect, useState } from "react";
- import { Link } from "react-router-dom";
  import { getProData } from "./api";
+ import { ImSpinner10 } from "react-icons/im";
  function cartProductDetails({ id, quantity }) {
      const [product, setProduct] = useState();
      useEffect(function () {
@@ -11,7 +9,8 @@
          })
      }, [])
      if (!product) {
-         return <></>
+         
+         return <div className=" grow text-indigo-700 text-6xl h-full flex items-center justify-center"> <ImSpinner10 className="animate-spin" /></div>
      }
 
      return ( 
@@ -25,7 +24,7 @@
              <td className="border-b p-2 text-center">${quantity}
 
              </td>
-             <td className="border-b p-2 text-center">${(product.price *quantity.toFixed(2)) }</td>
+             <td  className="border-b p-2 text-center">${(product.price *quantity.toFixed(2)) }</td>
          </tr>
 
 

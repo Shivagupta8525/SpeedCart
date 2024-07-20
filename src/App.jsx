@@ -22,20 +22,14 @@ import Cart from './Component/cart';
    //   }
    // }, []);
 
-   const saveDatastring =localStorage.getItem('cart') ||"{}";
+   const saveDatastring =localStorage.getItem('added-item') ||"{}";
    const saveData = JSON.parse(saveDatastring);
    const [storedData, setStoredData] = useState(saveData);
 
-   // useEffect(function () {
-   //    if (saveDatastring) {
-   //      setStoredData(saveData);
-        
-   //    }
-     
-   // }, []);
+    
    
    
-   const [cart, setCart]= useState({});
+   const [cart, setCart]= useState(saveData);
    console.log("cart is cart " ,cart);
    
    function handleAddTocart(productId, count ) {
@@ -48,7 +42,7 @@ import Cart from './Component/cart';
      // newCart[productId] = oldCart + count;
      setCart (newCart);
      const cartSrting = JSON.stringify(newCart);
-     localStorage.setItem("my-cart",cartSrting);
+     localStorage.setItem("added-item",cartSrting);
      }
    
   const totalCount =Object.keys(cart).reduce(function(previous , current){
