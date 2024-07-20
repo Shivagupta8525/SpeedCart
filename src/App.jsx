@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState,useCallback,useMemo} from 'react';
 import ProductListPage from './Component/ProductListPage';
 import ProductDetails from './Component/ProductDetails';
 import { Routes, Route } from 'react-router-dom';
@@ -45,11 +45,14 @@ import Cart from './Component/cart';
      localStorage.setItem("added-item",cartSrting);
      }
    
-  const totalCount =Object.keys(cart).reduce(function(previous , current){
+  const totalCount =useMemo(function(){
+    
+    return(Object.keys(cart).reduce(function(previous , current){
     
     return previous + cart[current];
     
-   },0);
+   },0))
+   },[cart]);
    console.log("totalCount is totalCount " ,totalCount);
 
 
