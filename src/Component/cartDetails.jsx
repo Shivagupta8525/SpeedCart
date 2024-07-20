@@ -10,7 +10,10 @@
      }, [])
      if (!product) {
          
-         return <div className=" grow text-indigo-700 text-6xl h-full flex items-center justify-center"> <ImSpinner10 className="animate-spin" /></div>
+        return(
+        <></>
+        );
+        //  return <div className=" grow text-indigo-700 text-6xl h-full flex items-center justify-center"> <ImSpinner10 className="animate-spin" /></div>
      }
 
      return ( 
