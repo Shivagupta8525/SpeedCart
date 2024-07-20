@@ -1,21 +1,22 @@
- import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState,useCallback,useMemo } from "react";
  import ProductList from "./ProductList";
  import { getList } from "./api";
  import Nomatch from './Nomatch';
  import alldata from './data';
  import Pagenum from './Pagenum';
+ import {ImSpinner10} from 'react-icons/im'
 
 
 
  function ProductListPage() {
      const [ProList, setProList] = useState([]);
-     const [loading, setloding] = useState(true);
+     
 
      useEffect(function () {
          const list = getList();
          list.then(function (Products) {
              setProList(Products);
-             setloding(false);
+             
          });
      }, []);
 
@@ -27,7 +28,7 @@
          return items.title.toLowerCase().indexOf(query.toLowerCase()) != -1;
      });
 
-
+useMemo(function(){
      if (sort == "price_Low") {
          data.sort(function (a, b) {
              return a.price - b.price;
@@ -50,21 +51,25 @@
              return b.rating - a.rating;
          });
      }
+    },[sort,data])
 
-
-     function handelonSearch(event) {
+    const   handelonSearch=useCallback(function(event) {
          setQuery(event.target.value);
-     }
-     function handelonSort(event) {
+     },[query]
+
+    )
+
+    const handelonSort=useCallback( 
+     function (event) {
          setSort(event.target.value);
          // console.log(sort);
-     }
+     },[sort]
 
-
+    )
      console.log(data);
 
 
-     if (!ProList) {
+     if (ProList.length ==0) {
          return <div className=" grow text-indigo-700 text-4xl flex items-center justify-center"> <ImSpinner10 className="animate-spin" /></div>
 
      }

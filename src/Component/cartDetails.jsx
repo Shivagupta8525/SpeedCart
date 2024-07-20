@@ -1,6 +1,8 @@
- import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState, memo } from "react";
  import { getProData } from "./api";
- import { ImSpinner10 } from "react-icons/im";
+
+
+
  function cartProductDetails({ id, quantity }) {
      const [product, setProduct] = useState();
      useEffect(function () {
@@ -33,4 +35,4 @@
 
      );
  }
- export default cartProductDetails;
+ export default memo(cartProductDetails);

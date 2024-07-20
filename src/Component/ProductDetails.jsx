@@ -1,4 +1,4 @@
- import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState,useCallback } from "react";
  import { useParams, Link } from "react-router-dom";
  import { ImSpinner10 } from "react-icons/im";
  import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
@@ -32,7 +32,7 @@
 
      }, [id]);
 
-     function handleCountChange(event) {
+     const handleCountChange=useCallback(function (event) {
         if (event.target.value <= 0){
             setCount(1);
         }
@@ -41,6 +41,7 @@
         }
 
      }
+    ,[]);
 
      function handleButtonClick() {
          onAddToCart(id, count);

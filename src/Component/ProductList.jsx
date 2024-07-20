@@ -1,4 +1,4 @@
- import React from 'react';
+ import React,{memo} from 'react';
  import Product from './Product';
 
 
@@ -14,4 +14,4 @@
      </>
      );
  }
- export default Productlist;
+ export default memo(Productlist);
