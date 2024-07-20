@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
 import Cart from "./cartDetails";
 import { getProData } from "./api";
@@ -20,9 +20,10 @@ function cart({ cart }) {
     
 
 
-    const allpromise = Promise.all(keys_array.map(function (id) {
+    const allpromise = useCallback( Promise.all(keys_array.map(function (id) {
         return getProData(id);
-    }));
+    }))
+);
 
     useEffect (function ( ){
         allpromise.then(function (data) {
@@ -30,7 +31,7 @@ function cart({ cart }) {
         })
     
         
-    })
+    },[keys_array])
     if (keys_array.length == 0) {
          return (
              <div className="flex flex-col gap-6 mx-auto">

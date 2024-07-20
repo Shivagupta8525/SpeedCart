@@ -1,4 +1,4 @@
- import React from 'react';
+ import React,{memo} from 'react';
 
  function Nomatch(params) {
      return (<>
@@ -7,4 +7,4 @@
      </>
      )
  }
- export default Nomatch;
+ export default memo(Nomatch);

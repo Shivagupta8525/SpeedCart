@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{memo} from 'react';
 
 function Pagenum () {
   return(
@@ -11,4 +11,4 @@ function Pagenum () {
   
 }
 
-export default Pagenum;
+export default memo(Pagenum);
