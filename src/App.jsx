@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState,useCallback,useMemo} from 'react';
+import {useState,useMemo} from 'react';
 import ProductListPage from './Component/ProductListPage';
 import ProductDetails from './Component/ProductDetails';
 import { Routes, Route } from 'react-router-dom';
@@ -7,20 +7,14 @@ import Header from './Component/Header';
 import Footer from './Component/Footer';
 import {PageNotFound} from './Component/NotFound';
 import Cart from './Component/cart';
+import Signup from './Component/Signup';
+import Forget from './Component/Forget';
+import Login from './Component/Login';
 
 
 
  function App() {
-   
- // // const [totalCount ,setTotalCount]= useState(0);
- //   const [storedData, setStoredData] = useState(null);
-
-   // useEffect(() => {
-   //   const data = localStorage.getItem('my-data-key');
-   //   if (data) {
-   //     setStoredData(JSON.parse(data));
-   //   }
-   // }, []);
+    
 
    const saveDatastring =localStorage.getItem('added-item') ||"{}";
    const saveData = JSON.parse(saveDatastring);
@@ -66,11 +60,15 @@ import Cart from './Component/cart';
          <Route path="/ProductDetails/:id" element={<ProductDetails onAddToCart= {handleAddTocart} />} />
           <Route path="*"element={<PageNotFound/>}/>
          <Route path="/my_cart" element={<Cart cart = {cart} />}></Route>
+         <Route path="/login" element={<Login/>} />
+         <Route path="/signup" element={<Signup/>} />
+         <Route path='/forget' element={<Forget/>}/>
          
        </Routes>
   </div>
 
        <Footer />
+      
 
 
 
