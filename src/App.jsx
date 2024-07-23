@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Component/Header';
 import Footer from './Component/Footer';
 import {PageNotFound} from './Component/NotFound';
-import Cart from './Component/Cart';
+import Cart from './Component/cart';
 import Signup from './Component/Signup';
 import Forget from './Component/Forget';
 import Login from './Component/Login';
