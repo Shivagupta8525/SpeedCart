@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
-import Cart from "./cartDetails";
+import Cart from "./CartDetails";
 import { getProData } from "./api";
 function cart({ cart }) {
 

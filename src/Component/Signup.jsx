@@ -5,12 +5,14 @@ import {Link} from "react-router-dom"
 
 function Signup() {
 
-    function handleCreateAccount() {   console.log(formik.values.name, formik.values.username, formik.values.email, formik.values.password, formik.values.confirm_password);
+    function handleCreateAccount() {   
+        console.log(formik.values.name, formik.values.username, formik.values.email, formik.values.password, formik.values.confirm_password);
+        console.log("handlecreate is running");
     }
     const schema = Yup.object().shape({
         name: Yup.string().required("Please enter your name"),
         email : Yup.string().required("Please fill your email"),
-        useranme: Yup.string().required("Please Enter username"),
+        username: Yup.string().required("Please Enter username"),
         password: Yup.string().required("Please Enter password").min(8,"password must be 8 chracters"),
         confirm_password : Yup.string().required("Please confirm your pssword").min(8),
 
@@ -51,6 +53,7 @@ function Signup() {
                       name="name"
                       value={formik.values.name}
                        className="w-full py-1 border border-gray-600 rounded-md"
+                       autoComplete="name"
                         placeholder="Enter your name" />
                 </div>
                     {formik.touched.name && formik.errors.name && <div className="text-red-500">{formik.errors.name}</div>}
@@ -64,6 +67,7 @@ function Signup() {
                         name="email"
                         placeholder="Email"
                         id="email"
+            
                         onBlur={formik.handleBlur}
                         value={formik.values.email}
                         onChange={formik.handleChange}
@@ -81,6 +85,7 @@ function Signup() {
                     id="Username" 
                     type="text" 
                     name="username"
+                    autoComplete="username"
                     value={formik.values.username}
                      className="w-full py-1 border border-gray-600 rounded-md" 
                      placeholder="Enter your Username" />
@@ -95,6 +100,7 @@ function Signup() {
                         onBlur={formik.handleBlur}
                         type="password"
                         name="password"
+                        autoComplete="password"
                         placeholder=" Enter password"
                         id="password"
                         className="w-full rounded-md  border border-gray-500   py-1 text-black placeholder-gray-500" />
@@ -112,6 +118,7 @@ function Signup() {
                         onBlur={formik.handleBlur}
                         type="password"
                         name="confirm_password"
+                        autoComplete="confirm_password"
                         placeholder=" Reenter password"
                         id="confirm_password"
                         className="w-full rounded-md  border border-gray-500   py-1 text-black placeholder-gray-500" />
