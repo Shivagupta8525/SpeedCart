@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
-import Cart from "./CartDetails";
+import Cart from "./cartDetails";
 import { getProData } from "./api";
 function cart({ cart }) {
 
@@ -104,4 +104,4 @@ function cart({ cart }) {
         </div>
     )
 }
-export default cart;
+export default Cart;
