@@ -66,6 +66,7 @@ function Login() {
                         onBlur={formik.handleBlur}
                         type="password"
                         name="password"
+                        autoComplete="password"
                         placeholder=" Enter your password"
                         id="password"
                         className="w-full rounded-md  border border-gray-500   py-1 text-black placeholder-gray-500" />

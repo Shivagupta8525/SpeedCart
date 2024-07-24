@@ -1,5 +1,7 @@
  import React, { useEffect, useState, memo } from "react";
  import { getProData } from "./api";
+import NotFound from "./NotFound";
+import { ImSpinner10 } from "react-icons/im";
 
 
 
@@ -7,13 +9,18 @@
      const [product, setProduct] = useState();
      useEffect(function () {
          getProData(id).then(function (data) {
-             setProduct(data)
+             setProduct(data);
+             console.log("data",data);
          })
+
+         
      }, [])
+     console.log("product", product,setProduct);
      if (!product) {
          
-        return(
-        <></>
+        return(<>
+         
+         </>
         );
         //  return <div className=" grow text-indigo-700 text-6xl h-full flex items-center justify-center"> <ImSpinner10 className="animate-spin" /></div>
      }

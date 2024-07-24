@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import * as Yup from "yup";
 function Forget() {
     function sendData() {
-        console.log(values.email)
+        console.log( "send data is running");
+        console.log("forget data", formik.values.email);
     }
     const schema = Yup.object().shape({
         email: Yup.string().required("Please fill your email"),
