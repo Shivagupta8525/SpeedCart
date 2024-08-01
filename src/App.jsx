@@ -34,9 +34,9 @@ function App() {
     const newCart = { ...cart, [productId]: oldCart + count };
 
      
-  //   updateCart(newCart);
-  //    const cartSrting = JSON.stringify(newCart);
-  //    localStorage.setItem("productCart",cartSrting);
+    updateCart(newCart);
+     const cartSrting = JSON.stringify(newCart);
+     localStorage.setItem("productCart",cartSrting);
    }
   function updateCart(newCart) {
     setCart(newCart);
