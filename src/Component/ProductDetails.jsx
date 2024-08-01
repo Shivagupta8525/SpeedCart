@@ -6,6 +6,7 @@
  import ProductListPage from "./ProductListPage";
  import Nomatch from './Nomatch';
  import NotFound from './NotFound';
+import Button from "./Button";
 
  function ProductDetails({ onAddToCart }) {
 
@@ -65,7 +66,7 @@
              <Link to={"/"} className="text-4xl  px-2 lg:px-80  " >
                  <HiArrowSmLeft />
              </Link>
-             <div className=" bg-white  border lg:flex max-w-6xl mt-4 mx-auto my-20 -mt-10 ">
+             <div className=" bg-white  border lg:flex max-w-6xl  mx-auto my-20 -mt-10 ">
                  <img
                      className="w-screen sm:max-w-80 lg:w-2/5 lg:h-96   h-80  "
                      src={product.thumbnail}
@@ -82,9 +83,10 @@
                      </p>
                      <div className="flex gap-2 pt-4  max-h-16">
                          <input type="number" value={count} onChange={handleCountChange}  className="border-2 border-gray-300 rounded-lg px-1  w-12 " />
-                         <button onClick={handleButtonClick} className="bg-orange-600 text-white rounded py-2 px-6">
+                         {/* <button onClick={handleButtonClick} className="bg-orange-600 text-white rounded py-2 px-6">
                              ADD TO CART
-                         </button>
+                         </button> */}
+                         <Button onClick={handleButtonClick}>Add to cart</Button>
                      </div>
                  </div>
              </div>
