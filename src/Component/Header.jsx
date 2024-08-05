@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom';
 import logo from "../images/logoBlack.png"
 import { GrShop } from "react-icons/gr";
 import { VscAccount } from "react-icons/vsc";
+import { withCart, withUser } from './withProvider';
 
-function Header({ productCount }) {
+function Header({ totalCount, setUser }) {
+    const handelLogout = () => {
+        localStorage.removeItem("token");
+        setUser(undefined);
+    }
+    console.log("totalCount",totalCount);
     return (
         < div className="bg-white py-1   ">
             <div className="  max-w-6xl mx-auto  flex justify-between items-center ">
@@ -15,10 +21,11 @@ function Header({ productCount }) {
                     <div  >
                         <Link to="/login" className="text-orange-400 font-bold text-4xl  "> <VscAccount /></Link>
                     </div>
+                    <button className='border rounded-full'  onClick={handelLogout}>logout</button>
                     <div className="flex flex-col items-center">
                         <Link to="/my_cart">
                             <GrShop className=' text-4xl text-orange-400' />
-                            <p className=' -mt-6 ml-3 text-orange-400'>{productCount}</p>
+                            <p className=' -mt-6 ml-3 text-orange-400'>{totalCount}</p>
                         </Link>
                     </div>
 
@@ -31,4 +38,4 @@ function Header({ productCount }) {
     )
 }
 
-export default memo(Header);
+export default withUser(withCart(Header));

@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { getProData } from "./api";
 import CartList from "./CartList";
+import { withCart } from "./withProvider";
 
 
-function cart({ cart, updateCart}) {
+function cart({ cart, updateCart,totalCount}) {
 
     const [cart_product, setCart_product] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const [localCart, setLocalCart] = useState(cart);
     const keys_array = Object.keys(cart);
-    const totalCount = cart_product.reduce(function (previous, current) {
+    // const totalCount = cart_product.reduce(function (previous, current) {
 
-        return previous + cart[current.id] * current.price;
-    }, 0).toFixed(2);
+    //     return previous + cart[current.id] * current.price;
+    // }, 0).toFixed(2);
 
     useEffect(  
         function()
@@ -133,4 +134,4 @@ function cart({ cart, updateCart}) {
         </div>
     )
 }
-export default cart;
+export default withCart(cart);

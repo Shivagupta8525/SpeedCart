@@ -3,10 +3,9 @@
  import { ImSpinner10 } from "react-icons/im";
  import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
  import { getProData } from "./api";
- import ProductListPage from "./ProductListPage";
- import Nomatch from './Nomatch';
  import NotFound from './NotFound';
 import Button from "./Button";
+import { withCart } from "./withProvider";
 
  function ProductDetails({ onAddToCart }) {
 
@@ -108,4 +107,4 @@ import Button from "./Button";
      );
  }
 
- export default ProductDetails;
+ export default withCart(ProductDetails);

@@ -2,16 +2,16 @@
  import ProductList from "./ProductList";
  import { getList } from "./api";
  import Nomatch from './Nomatch';
- import alldata from './data';
  import Pagenum from './Pagenum';
  import {ImSpinner10} from 'react-icons/im'
+import { withUser } from "./withProvider";
 
 
 
  function ProductListPage() {
      const [ProList, setProList] = useState([]);
      
-
+console.log("productlist called")
      useEffect(function () {
          const list = getList();
          list.then(function (Products) {
@@ -109,6 +109,6 @@ useMemo(function(){
      );
  }
 
- export default ProductListPage;
+ export default withUser(ProductListPage);
 
 
