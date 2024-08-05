@@ -7,7 +7,7 @@
 import Button from "./Button";
 import { withCart } from "./withProvider";
 
- function ProductDetails({ onAddToCart }) {
+ function ProductDetails({ handleAddTocart }) {
 
      const id = parseInt(useParams().id);
      const [product, setProduct] = useState();
@@ -44,7 +44,7 @@ import { withCart } from "./withProvider";
     ,[]);
 
      function handleButtonClick() {
-         onAddToCart(id, count);
+        handleAddTocart(id, count);
 
      }
 

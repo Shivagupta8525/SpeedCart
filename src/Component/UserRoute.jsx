@@ -8,8 +8,6 @@ function UserRoute({user,children}) {
     console.log("user rinining")
    return <Navigate to='/login' replace></Navigate>
   }
-
-  return children
+ return children
 }
-
 export default withUser(UserRoute);

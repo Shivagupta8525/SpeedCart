@@ -4,11 +4,8 @@ import Alert from "./Alert";
  // Component Description
  function text(){
        return (<> 
-       
-       <Alert></Alert>
-       
-       </>);
- 
- }
+        <Alert></Alert>
+        </>);
+  }
  export default text;
  

@@ -5,75 +5,40 @@ import CartList from "./CartList";
 import { withCart } from "./withProvider";
 
 
-function cart({ cart, updateCart,totalCount}) {
+function cart({ cart, updateCart, totalCount }) {
 
     const [cart_product, setCart_product] = useState([]);
-
     const [loading, setLoading] = useState(true);
     const [localCart, setLocalCart] = useState(cart);
     const keys_array = Object.keys(cart);
-    // const totalCount = cart_product.reduce(function (previous, current) {
-
-    //     return previous + cart[current.id] * current.price;
-    // }, 0).toFixed(2);
-
-    useEffect(  
-        function()
-        {
-            setLocalCart(cart);
-        },[cart]
-    );
-    
     useEffect(
-        function(){
+        function () {
+            setLocalCart(cart);
+        }, [cart]
+    );
+
+    useEffect(
+        function () {
             setLoading(true);
-            const allpromise =  keys_array.map(function (id) {
+            const allpromise = keys_array.map(function (id) {
                 return getProData(id);
             });
-
-            Promise.all(allpromise).then(function(products){
+            Promise.all(allpromise).then(function (products) {
                 setCart_product(products);
                 setLoading(false);
             });
         },
         [cart]
     );
-    
-    
-  //  console.log(keys_array, "key array");
-
-    // function handleChange(productId,value){
-    //     const newCart = {...localCart,[productId]:value};
-    //     console.log(productId," ",value);
-    //     if(value >0){
-    //       setLocalCart(newCart);
-    //     } 
-    //   }
-
-    function handelCart(item){
+    function handelCart(item) {
         setLocalCart(item)
-
     }
-
-
-    function  updateMyCart () {
-        // updateCart(localCart[item]);
-        // const newCart = {...localCart,[item.id]:item.quantity};
-        // console.log(newCart,"new cart is after upadte cart");
-        const update= {...localCart}
-        updateCart( update );
+    function updateMyCart() {
+        const update = { ...localCart }
+        updateCart(update);
         console.log("updated my cart is called")
         console.log("setlocart cart from cart", setLocalCart);
-
-     //  console.log("update   my    Cart is cart",updateCart);
     };
-
-
-    // console.log("updateCart is cart",updateCart);
-    // console.log("cart product".cart_product);
-   // console.log("setlocart cart from cart", setLocalCart);
-
-
     if (keys_array.length == 0) {
         return (
             <div className="flex flex-col gap-6 mx-auto">
@@ -89,30 +54,19 @@ function cart({ cart, updateCart,totalCount}) {
         <div className="flex flex-col gap-4 max-w-6xl mx-auto bg-white border my-10 py-10 px-16  ">
             <h1 className="text-4xl text-gray-400">Cart</h1>
             <div className="  ">
-
                 <div >
-
-
                     <CartList cart={cart}
                         products={cart_product}
                         cartUpdate={updateCart}
-                         
                         updateCart={handelCart}
-                        
-                         />
-
-
-
+                    />
                 </div>
-
-
                 <div className="flex py-2 justify-between px-2">
                     <div className="flex gap-2">
                         <input className="border border-gray-200 py-1 px-2" type="text" placeholder="Coupon Code"></input>
                         <button className="border rounded-md bg-red-500 px-6 text-white">Apply Coupon</button>
                     </div>
-
-                    <button onClick={updateMyCart}  className="border rounded-md bg-red-500 px-6 text-white"> Update Cart </button>
+                    <button onClick={updateMyCart} className="border rounded-md bg-red-500 px-6 text-white"> Update Cart </button>
                 </div>
             </div>
             <div className="border self-end sm:mx-8 flex flex-col gap-4 min-w-80 max-w-96 px-4 py-2">

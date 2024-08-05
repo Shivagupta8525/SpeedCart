@@ -3,14 +3,12 @@ import { UserContext } from "../context";
 import axios from "axios";
 
 function UserProvider({children}){
-
-    const [loading, setLoading] = useState(true);
+ 
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
-
   const token = localStorage.getItem("token");
   useEffect(() => {
-
-    if (token) {
+ if (token) {
       axios.get("https://myeasykart.codeyogi.io/me", {
         headers: {
           Authorization: token,
@@ -29,13 +27,10 @@ function UserProvider({children}){
     }
   }, [token])
   if(loading)
-    
-    {
+     {
     return<>Loading...</>;
   }
       return (<UserContext.Provider value={{user,setUser}}>{children}</UserContext.Provider>
-      
-      
        );
 
 }

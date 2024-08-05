@@ -1,43 +1,25 @@
 import React, { useState, useEffect } from 'react';
-
 import CartRow from './cartRow';
-
 
 function CartList({ products, cart, updateCart }) {
     const [localCart, setLocalCart] = useState(cart);
 
-
-
     useEffect(function () {
         setLocalCart(cart);
     }, [cart]);
-
-
-
     function handleChange(productId, newValue) {
         const newLocalCart = { ...localCart, [productId]: newValue };
         const text = { [productId]: newValue };
         setLocalCart(newLocalCart);
         updateCart(newLocalCart);
-        // change(productId,newValue);
-
-        // console.log("newlocal cart form cartlist", newLocalCart);
-        // console.log("setlocalcart from acrt list", setLocalCart);
-        // console.log("upade value in cartlist", text );
-
     }
-
-
     function handleRemove(productId) {
         const newCart = { ...cart };
         delete newCart[productId];
         setLocalCart(newCart);
         console.log("handelremove called");
         updateCart(newCart);
-         
-
     }
-    //  console.log("updateCart",updateCart);
 
     if (!products) {
         return (
@@ -58,7 +40,6 @@ function CartList({ products, cart, updateCart }) {
         </div>
             {products.map(function (item) {
                 return (
-
                     <CartRow
                         key={item.id}
                         quantity={localCart[item.id]}
@@ -67,11 +48,7 @@ function CartList({ products, cart, updateCart }) {
                         onRemove={handleRemove} />
                 )
             })}
-
         </>
-
-
     )
 }
-
 export default CartList;

@@ -9,8 +9,7 @@ function AuthRoute({user,children}) {
     console.log("rinining")
    return <Navigate to='/' replace></Navigate>
   }
-
-  return children
+ return children
 }
 
 export default  withUser(AuthRoute);
