@@ -1,156 +1,113 @@
-// import { Formik,Form } from "formik";
-// import React from "react";
-// import * as Yup from "yup";
-// import { Link } from "react-router-dom";
-// import Input from "./Input";
 
-// function Login() {
-
-//     function callLogApi(values) {
-//         console.log("callLogApi is called");
-//         console.log("sending data", values.email, values.password);
-//     }
-
-//     const schema = Yup.object().shape({
-//         email: Yup.string().email().required("Please Enter Email"),
-//         password: Yup.string().required("Please Enter password").min(8)
-//     });
-
-
-
-//     const initialValues = {
-//         email: "",
-//         password: "",
-//     }
-
-
-//     return (
-//         <div className="flex bg-gray-100 w-screen h-screen justify-center items-center">
-//             <Formik
-//                 initialVaules={initialValues}
-//                 onSubmit={callLogApi}
-//                 validationSchema={schema}
-//                 valiadationOnMount
-
-//             >
-
-//                 <Form
-                   
-//                     className=" flex  flex-col bg-white w-96   px-4 py-2 self-center rounded-xl shadow-md gap-4   ">
-//                     <h1 className="self-center my-5 text-2xl text-gray-500 font-bold"> SpeedCart</h1>
-//                     <h2 className="text-2xl blod"> Sign In</h2>
-
-//                     <div>
-//                         <Input lable="Email or username"
-//                             type="email"
-//                             name="email"
-//                             placeholder="Enter Username or email"
-//                             id="email"
-//                             autoComplete="email"
-//                             required={true}
-//                             />
-//                     </div>
-//                     <div>
-//                         <Input
-//                             type="password"
-//                             name="password"
-//                             lable="Password"
-//                             placeholder=" Enter your password"
-//                             id="password"
-//                             autoComplete="password"
-//                              />
-//                         <Link className="text-blue-600 my-2 " to="/forget">Forget Password</Link>
-//                     </div>
-
-//                     <button type="submit" className="my-6 border rounded-md bg-blue-600 text-white text-xl py-2 disabled:bg-blue-300"  >Log in</button>
-//                     <p className="self-center ">New Customer?<Link className="text-blue-600" to="/Signup">Signup</Link></p>
-
-
-
-//                 </Form>
-//             </Formik>
-//         </div>
-
-//     );
-
-// }
-
-// export default Login;
-import { Formik,Form } from "formik";
+import { withFormik } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
-import { FormikInput } from "./Input";
+import { Link, Navigate } from "react-router-dom";
+import Input from "./Input";
+import axios from "axios";
+ import { withUser,withAlert } from "./withProvider";
+//import withAlert from "./withAlert";
+//import withUser from "./WithUser";
 
-function Login() {
 
-    function callLogApi(values) {
-        console.log("callLogApi is called");
-        console.log("sending data", values.email, values.password);
+
+function callLogApi(values, bag) {
+    console.log("callLogApi is called");
+    console.log("sending data", values.email, values.password);
+
+    axios.post("https://myeasykart.codeyogi.io/login", {
+        email: values.email,
+        password: values.password,
+    })
+        .then((response) => {
+            console.log("response", response.data);
+            const { user, token } = response.data;
+            localStorage.setItem("token", token);
+            bag.props.setUser(user);
+            bag.props.setAlert({type:"success",message:"Successfully Login"});
+             
+        }).catch(() => {
+            console.log("error from login  password api");
+            bag.props.setAlert({type:"error",message:"Invalid email or password"});
+        })
+}
+
+const schema = Yup.object().shape({
+    email: Yup.string().email().required("Please Enter Email"),
+    password: Yup.string().required("Please Enter password").min(8)
+});
+
+const initialValues = {
+    email: "",
+    password: "",
+}
+export function Login({ handleSubmit, values, errors, touched, handleChange, handleBlur, user }) {
+    if (user) {
+        return <Navigate to="/" />
     }
-
-    const schema = Yup.object().shape({
-        email: Yup.string().email().required("Please Enter Email"),
-        password: Yup.string().required("Please Enter password").min(8)
-    });
-
-
-
-    const initialValues = {
-        email: "",
-        password: "",
-    }
-
 
     return (
         <div className="flex bg-gray-100 w-screen h-screen justify-center items-center">
-            <Formik
-                initialVaules={initialValues}
-                onSubmit={callLogApi}
-                validationSchema={schema}
-                valiadationOnMount
+            <form
+                onSubmit={handleSubmit}
 
-            >
+                className=" flex  flex-col bg-white w-96   px-4 py-2 self-center rounded-xl shadow-md gap-4   ">
+                <h1 className="self-center my-5 text-2xl text-gray-500 font-bold"> SpeedCart</h1>
+                <h2 className="text-2xl blod"> Sign In</h2>
 
-                <Form
-                   
-                    className=" flex  flex-col bg-white w-96   px-4 py-2 self-center rounded-xl shadow-md gap-4   ">
-                    <h1 className="self-center my-5 text-2xl text-gray-500 font-bold"> SpeedCart</h1>
-                    <h2 className="text-2xl blod"> Sign In</h2>
+                <div>
+                    <Input values={values.email}
+                        error={errors.email}
+                        touched={touched.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        label="Email"
+                        id="email-address"
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        className="rounded-b-none"
+                        autoComplete="email"
+                        required
+                    />
+                </div>
+                <div>
+                    <Input
+                        values={values.password}
+                        error={errors.password}
+                        touched={touched.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        type="password"
+                        name="password"
+                        lable="Password"
+                        placeholder="Enter your password"
+                        id="password"
+                        autoComplete="password"
+                        required
+                    />
+                    <Link className="text-blue-600 my-2 " to="/forget">Forget Password</Link>
+                </div>
 
-                    <div>
-                        <FormikInput lable="Email or username"
-                            type="email"
-                            name="email"
-                            placeholder="Enter Username or email"
-                            id="email"
-                            autoComplete="email"
-                            required={true}
-                            />
-                    </div>
-                    <div>
-                        <FormikInput
-                            type="password"
-                            name="password"
-                            lable="Password"
-                            placeholder=" Enter your password"
-                            id="password"
-                            autoComplete="password"
-                             />
-                        <Link className="text-blue-600 my-2 " to="/forget">Forget Password</Link>
-                    </div>
-
-                    <button type="submit" className="my-6 border rounded-md bg-blue-600 text-white text-xl py-2 disabled:bg-blue-300"  >Log in</button>
-                    <p className="self-center ">New Customer?<Link className="text-blue-600" to="/Signup">Signup</Link></p>
+                <button type="submit" className="my-6 border rounded-md bg-blue-600 text-white text-xl py-2 disabled:bg-blue-300"  >Log in</button>
+                <p className="self-center ">New Customer?<Link className="text-blue-600 hover:font-bold underline" to="/Signup">Signup</Link></p>
 
 
 
-                </Form>
-            </Formik>
+            </form>
+
         </div>
 
     );
 
 }
 
-export default Login;
+const myHOC = withFormik({
+    initialValues: {
+        email: "",
+        password: "",
+    },
+    handleSubmit: callLogApi,
+    validationSchema: schema,
+})(Login);
+export default withAlert(withUser(myHOC));
