@@ -59,7 +59,7 @@ console.log("page",page);
 }
 
 export function saveCart(cart){
-    return axios.post("https://myeasykart.codeyogi.io/carts",{data:cart},{
+    return    axios.post("https://myeasykart.codeyogi.io/carts",{data:cart},{
         headers:{
             Authorization:localStorage.getItem("token"),
         },
