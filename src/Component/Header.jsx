@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React  from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../images/logoBlack.png"
 import { GrShop } from "react-icons/gr";
@@ -10,7 +10,7 @@ function Header({ totalCount, setUser }) {
         localStorage.removeItem("token");
         setUser(undefined);
     }
-    console.log("totalCount", totalCount);
+
     return (
         < div className="bg-white py-1   ">
             <div className="  max-w-6xl mx-auto  flex justify-between items-center ">

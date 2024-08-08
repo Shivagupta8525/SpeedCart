@@ -30,7 +30,7 @@ function UserProvider({children}){
      {
     return<>Loading...</>;
   }
-      return (<UserContext.Provider value={{user,setUser}}>{children}</UserContext.Provider>
+      return (<UserContext.Provider value={{isLoggedIn:!!token,  user,setUser}}>{children}</UserContext.Provider>
        );
 
 }

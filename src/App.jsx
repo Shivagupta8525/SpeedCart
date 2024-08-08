@@ -32,10 +32,10 @@ function App() {
             <div className="grow">
               <Routes>
                 <Route path="/login" element={<AuthRoute  ><Login /> </AuthRoute>} />
-                <Route index element={<UserRoute><ProductListPage /> </UserRoute>} />
-                <Route path="/ProductDetails/:id" element={<UserRoute> <ProductDetails /> </UserRoute>} />
+                <Route index element={<ProductListPage /> } />
+                <Route path="/ProductDetails/:id" element={ <ProductDetails /> } />
                 <Route path="*" element={<PageNotFound />} />
-                <Route path="/my_cart" element={<UserRoute> <Cart /></UserRoute>}></Route>
+                <Route path="/my_cart" element={ <Cart />}></Route>
                 <Route path="/signup" element={<Signup />} />
                 <Route path='/forget' element={<Forget />} />
               </Routes>

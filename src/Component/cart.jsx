@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { getProData } from "./api";
+import { getProductByIds } from "./api";
 import CartList from "./CartList";
 import { withCart } from "./withProvider";
 
 
-function cart({ cart, updateCart, totalCount }) {
+function cart({ cart, updateCart }) {
 
     const [cart_product, setCart_product] = useState([]);
     const [loading, setLoading] = useState(true);
+    const productIds = Object.keys(cart);
     const [localCart, setLocalCart] = useState(cart);
-    const keys_array = Object.keys(cart);
+  
     useEffect(
         function () {
             setLocalCart(cart);
@@ -20,10 +21,8 @@ function cart({ cart, updateCart, totalCount }) {
     useEffect(
         function () {
             setLoading(true);
-            const allpromise = keys_array.map(function (id) {
-                return getProData(id);
-            });
-            Promise.all(allpromise).then(function (products) {
+         
+             getProductByIds(productIds).then(function (products) {
                 setCart_product(products);
                 setLoading(false);
             });
@@ -44,8 +43,8 @@ function cart({ cart, updateCart, totalCount }) {
     const Total =cart_product.reduce((total, {price,id}) => {
         return total + (price || 0 )* (localCart[id]||0);
       }, 0);
-      console.log("total",Total)
-    if (keys_array.length == 0) {
+      
+    if (productIds.length == 0) {
         return (
             <div className="flex flex-col gap-6 mx-auto">
                 <h1 className="bold text-3xl">Your Cart Is Empty</h1>

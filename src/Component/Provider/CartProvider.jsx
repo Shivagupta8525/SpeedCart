@@ -1,11 +1,27 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CartContext } from "../context";
 import { withUser } from "../withProvider";
+import { getCart,  saveCart } from "../api";
+ 
 
-function CartProvider({ children }) {
-  const saveDatastring = localStorage.getItem('productCart') || "{}";
-  const saveData = JSON.parse(saveDatastring);
-  const [cart, setCart] = useState(saveData);
+function CartProvider({ loggedIn, children }) {
+  const [cart, setCart] = useState({});
+
+  useEffect(function () {
+    if (! loggedIn) {
+      const saveDatastring = localStorage.getItem('productCart') || "{}";
+      const saveData = JSON.parse(saveDatastring);
+     
+        setCart(saveData);
+      
+    } else {
+      getCart().then(function(saveData)  {
+        setCart(saveData);
+      })
+    }
+  }, [loggedIn]);
+
+
 
   function handleAddTocart(productId, count) {
     const oldCart = cart[productId] || 0;
@@ -14,9 +30,17 @@ function CartProvider({ children }) {
   }
   function updateCart(newCart) {
     setCart(newCart);
-    let cartString = JSON.stringify(cart);
-    localStorage.setItem("productCart", cartString);
-    console.log("newcart from acrt", newCart);
+    if (!loggedIn) {
+      let cartString = JSON.stringify(cart);
+
+      localStorage.setItem("productCart", cartString);
+      console.log("newcart from acrt", newCart);
+    }
+    else {
+      saveCart(newCart);
+
+    }
+
   }
   const totalCount = useMemo(() => {
 
@@ -25,7 +49,7 @@ function CartProvider({ children }) {
 
     }, 0))
   }, [cart]);
-  // console.log("totalCount is totalCount ", totalCount);
+ 
   return (
     <CartContext.Provider value={{ cart, updateCart, handleAddTocart, totalCount }}>{children} </CartContext.Provider>)
     ;
