@@ -6,7 +6,7 @@
         <Link to={"/ProductDetails/" + data.id}    >
          <div className="  border   bg-white  flex flex-col gap-2   " >
              <div className="w-full h-full">
-                 <img className=" w-full h-full object-cover aspect-square" src={data.thumbnail} />
+                 <img className=" w-full h-full object-cover aspect-square" src={data.thumbnail} alt={"product "+ data.id} />
              </div>
  <div className="text-2xs  ml-2  font-bold mt-2">{data.title}</div>
              <div className="text-red-500 text-2xs ml-2   ">{data.category}</div>

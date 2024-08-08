@@ -19,7 +19,7 @@ export function PageNotFound() {
             <img className=" w-80 h-60  aspect-square" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTcKcoquPvJ-O9WfgEYiUF34hYhzaGcrtamQ&s" />
             <h1 className="text-2xl text-indigo-700"> Page Not found </h1>
             <p className="text-xl"> We're sorry, the page you requested colud not be found Please go back to homepage.</p>
-            <Link to="/ProductListPage" className="rounded-full text-xl py-0.5  bg-orange-500 px-2" >Go Home</Link>
+            <Link to="/" className="rounded-full text-xl py-0.5  bg-orange-500 px-2" >Go Home</Link>
         </div>
     )
 }

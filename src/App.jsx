@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState, useMemo } from 'react';
+import React from 'react';
 import ProductListPage from './Component/ProductListPage';
 import ProductDetails from './Component/ProductDetails';
 import { Routes, Route } from 'react-router-dom';
@@ -16,16 +15,14 @@ import Alert from './Component/Alert';
 import UserProvider from './Component/Provider/UserProvider';
 import AlertProvider from './Component/Provider/AlertProvider';
 import CartProvider from './Component/Provider/CartProvider';
+// import ProductListPage from './Component/text';
 
 
 
 function App() {
 
   console.log("app component is called")
-
- 
   return (
-
     <div className="  grow bg-gray-200 h-screen overflow-scroll flex flex-col">
       <UserProvider>
         <AlertProvider>
@@ -44,6 +41,7 @@ function App() {
               </Routes>
             </div>
             <Footer />
+           
           </CartProvider>
         </AlertProvider>
       </UserProvider>

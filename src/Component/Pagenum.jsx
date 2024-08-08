@@ -1,11 +1,24 @@
 import React, { memo } from 'react';
+import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
+import { range } from "lodash";
 
-function Pagenum() {
+function Pagenum(page) {
   return (
-    <div className="flex gap-2 px- py-4 flex-start">
-      <a className="px-2  border text-red-500 border-red-500 rounded-sm" href="">1</a>
-      <a className="px-2  border text-red-500 border-red-500 rounded-sm" href="">2</a>
-      <a className="px-2  border text-red-500 border-red-500 rounded-sm" href="">3</a>
+    <div className='mt-6   flex items-center mb-2 ml-8 gap-1'>
+      {(page > 1) && (
+        <HiArrowNarrowLeft className='text-4xl border border-black' onClick={() => handlePageChange(page - 1)} />
+      )
+      }
+      {range(page, page + 2).map((item) => {
+
+        return <Link to={'?' + new URLSearchParams({ ...params, page: item })} className={`border border-black py-1 px-4 ${page === item ? 'bg-gray-500' : ''}`} href="">{item}</Link>
+      }
+
+      )}
+      {(
+        <HiArrowNarrowRight className='text-4xl border border-black' onClick={() => handlePageChange(page + 1)} />
+      )
+      }
     </div>
   );
 }

@@ -32,6 +32,7 @@ function cart({ cart, updateCart, totalCount }) {
     );
     function handelCart(item) {
         setLocalCart(item)
+        updateCart(item)
     }
     function updateMyCart() {
         const update = { ...localCart }
@@ -39,6 +40,11 @@ function cart({ cart, updateCart, totalCount }) {
         console.log("updated my cart is called")
         console.log("setlocart cart from cart", setLocalCart);
     };
+
+    const Total =cart_product.reduce((total, {price,id}) => {
+        return total + (price || 0 )* (localCart[id]||0);
+      }, 0);
+      console.log("total",Total)
     if (keys_array.length == 0) {
         return (
             <div className="flex flex-col gap-6 mx-auto">
@@ -74,12 +80,12 @@ function cart({ cart, updateCart, totalCount }) {
                 <div className="flex flex-col gap-2">
                     <div className="px-2 flex gap-16 justify-between">
                         <h2>Subtotal</h2>
-                        <h2>${totalCount}</h2>
+                        <h2>${Total}</h2>
                     </div>
                     <hr />
                     <div className="px-2 flex gap-16 justify-between">
                         <h2>Total</h2>
-                        <h2>${totalCount}</h2>
+                        <h2>${Total}</h2>
                     </div>
                     <hr />
                 </div>

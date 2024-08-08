@@ -25,7 +25,7 @@ function CartProvider({ children }) {
 
     }, 0))
   }, [cart]);
-  console.log("totalCount is totalCount ", totalCount);
+  // console.log("totalCount is totalCount ", totalCount);
   return (
     <CartContext.Provider value={{ cart, updateCart, handleAddTocart, totalCount }}>{children} </CartContext.Provider>)
     ;

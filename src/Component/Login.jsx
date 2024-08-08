@@ -9,14 +9,14 @@ import { withUser, withAlert } from "./withProvider";
 
 
 function callLogApi(values, bag) {
-    console.log("callLogApi is called");
-    console.log("sending data", values.email, values.password);
+    // console.log("callLogApi is called");
+    // console.log("sending data", values.email, values.password);
     axios.post("https://myeasykart.codeyogi.io/login", {
         email: values.email,
         password: values.password,
     })
         .then((response) => {
-            console.log("response", response.data);
+            // console.log("response", response.data);
             const { user, token } = response.data;
             localStorage.setItem("token", token);
             bag.props.setUser(user);

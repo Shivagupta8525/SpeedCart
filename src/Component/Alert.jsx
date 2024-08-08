@@ -33,8 +33,8 @@ function Alert({ alert, removeAlert }) {
     const { message, type } = alert;
     const { Icon, color } = themeMap[type];
     console.log("alert", alert);
-    console.log("message", message);
-    console.log("type", type);
+    // console.log("message", message);
+    // console.log("type", type);
 
     return (
         <div className="bg-gray-100">
