@@ -1,54 +1,77 @@
+
+
 import React, { useState, useEffect } from 'react';
 import CartRow from './cartRow';
+import { withCart } from "./withProvider";
 
-function CartList({ products, cart, updateCart }) {
-    const [localCart, setLocalCart] = useState(cart);
+function CartList({ cart, updateCart, }) {
+    const [localCart, setLocalCart] = useState({});
+
+
+
+    const cartToQuantityMap = () =>
+        cart.reduce(
+            (m, cartItem) => ({ ...m, [cartItem.product.id]: cartItem.quantity }),
+            {}
+        );
 
     useEffect(function () {
-        setLocalCart(cart);
+        setLocalCart(cartToQuantityMap);
     }, [cart]);
+
+
     function handleChange(productId, newValue) {
+
         const newLocalCart = { ...localCart, [productId]: newValue };
-        const text = { [productId]: newValue };
+
         setLocalCart(newLocalCart);
-        updateCart(newLocalCart);
+
     }
+
     function handleRemove(productId) {
-        const newCart = { ...cart };
+        const newCart = cartToQuantityMap();
         delete newCart[productId];
-        setLocalCart(newCart);
-        console.log("handelremove called");
+
         updateCart(newCart);
     }
+    function updateMyCart() {
+        const update = { ...localCart }
+        updateCart(update);
 
-    if (!products) {
-        return (
-            <div className=" grow text-indigo-700 text-6xl h-full flex items-center justify-center"> <ImSpinner10 className="animate-spin" /></div>
-        );
-    }
+    };
+    console.log(cart);
 
     return (
-        <><div className="flex border bg-gray-200 ">
-            <div className="flex w-1/2 items-center justify-center font-bold">
-                <h3 className="bold text-1xl ">Product</h3>
+        <>
+            <div className="flex border bg-gray-200 ">
+                <div className="flex w-1/2 items-center justify-center font-bold">
+                    <h3 className="bold text-1xl ">Product</h3>
+                </div>
+                <div className="flex items-center gap-10 bg--600 ">
+                    <h3 className="font-bold px-10  ">Price</h3>
+                    <h3 className="font-bold px-10">Quantity</h3>
+                    <h3 className="font-bold px-10">SubTotal</h3>
+                </div>
             </div>
-            <div className="flex items-center gap-10 bg--600 ">
-                <h3 className="font-bold px-10  ">Price</h3>
-                <h3 className="font-bold px-10">Quantity</h3>
-                <h3 className="font-bold px-10">SubTotal</h3>
-            </div>
-        </div>
-            {products.map(function (item) {
+            {cart.map(function (item) {
                 return (
                     <CartRow
+                        id={item.id}
                         key={item.id}
-                        quantity={localCart[item.id]}
-                        product={item}
+                        quantity={localCart[item.product.id] || item.quantity}
+                        product={item.product}
                         onQuntityChange={handleChange}
                         onRemove={handleRemove} />
                 )
             })}
+            <div className="flex py-2 justify-between px-2">
+                <div className="flex gap-2">
+                    <input className="border border-gray-200 py-1 px-2" type="text" placeholder="Coupon Code"></input>
+                    <button className="border rounded-md bg-red-500 px-6 text-white">Apply Coupon</button>
+                </div>
+                <button onClick={updateMyCart} className="border rounded-md bg-red-500 px-6 text-white"> Update Cart </button>
+            </div>
         </>
     )
 }
-export default CartList;
+export default withCart(CartList);
